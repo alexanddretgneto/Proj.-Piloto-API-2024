@@ -1,0 +1,23 @@
+<!-- author_detail.html -->
+
+{% extends "catalog/base_generic.html" %}
+
+{% block content %}
+  <title>title detalhes_author</title>
+  <h1>Detalhes do Autor</h1>
+  <p><strong>Nome:</strong> {{ object.first_name }} {{ object.last_name }}</p>
+  {% if object.date_of_birth %}
+    <p><strong>Data de Nascimento:</strong> {{ object.date_of_birth }}</p>
+  {% endif %}
+  {% if object.date_of_death %}
+    <p><strong>Data de Falecimento:</strong> {{ object.date_of_death }}</p>
+  {% endif %}
+  <h2>Livros do Autor</h2>
+  <ul>
+    {% for book in object.book_set.all %}
+      <li><a href="{{ book.get_absolute_url }}">{{ book.title }}</a></li>
+    {% empty %}
+      <li>Nenhum livro encontrado para este autor.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

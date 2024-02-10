@@ -1,0 +1,45 @@
+{% extends "catalog/base_generic.html" %}
+
+{% block content %}
+<div>
+  <title>HHH</title>
+  <!-- {% if user.is_authenticated %}
+  <form id="logout-form" method="post" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <input type="submit" value="Logout">
+  </form>
+  {% endif %}
+
+  <style>
+    /* CSS to position the logout button in the top right corner */
+    #logout-form {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+  </style> -->
+
+  <h1>Livraria Local</h1>
+
+  <p>
+    Bem-Vindo A livraria online h
+    <em>Mozilla Developer Network</em>!
+    <em>Parceria com Alex</em>!
+  </p>
+
+  <h2>Função 1</h2>
+  <p>Esta função realiza apenas a contagem dos bancos de dados</p>
+  <ul>
+    <li><strong>Livros:</strong> {{ num_books }}</li>
+    <li><strong>Cópias:</strong> {{ num_instances }}</li>
+    <li><strong>Cópias available:</strong> {{ num_instances_available }}</li>
+    <li><strong>Autores:</strong> {{ num_authors }}</li>
+    <li><strong>Gênero:</strong> {{ num_genero }}</li>
+    <li><strong>Livros Pesquisados sobre Magos:</strong> {{ num_livros_esquisados }}</li>
+  </ul>
+
+  <p>
+    Número de vezes que você clicou no link da página Home: {{ num_visits }}{% if num_visits == 1 %} vez{% else %} vezes{% endif %}.
+  </p>
+</div>
+{% endblock %}

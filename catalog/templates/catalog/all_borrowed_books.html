@@ -1,0 +1,28 @@
+{% extends 'catalog/base_generic.html' %}
+
+{% block title %}
+    <title>Livraria Local - Livros Emprestados</title>
+{% endblock %}
+
+{% block content %}
+    <h2>Livros Emprestados</h2>
+    <ul>
+        {% for book_instance in object_list %}
+            <li>{{ book_instance.book.title }} - Emprestado por: 
+                {% if book_instance.borrower %}
+                    {% if book_instance.borrower.username %}
+                        {{ book_instance.borrower.username }}
+                    {% else %}
+                        Usuário com campo de nome vazio
+                    {% endif %}
+                {% else %}
+                    Usuário Desconhecido
+                {% endif %}
+                - Data de Entrega: {{ book_instance.due_back }}
+                {% if perms.catalog.can_mark_returned %}- <a href="{% url 'renew-book-librarian' book_instance.id %}">Renew</a>{% endif %}
+            </li>
+        {% empty %}
+            <li>Nenhum livro emprestado no momento.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
