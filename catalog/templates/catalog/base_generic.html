@@ -79,39 +79,56 @@
 
             
             </ul>
-          <!-- <ul class="sidebar-nav">
-            {% if user.is_authenticated %}
-          <li>Bem-Vindo: {{ user.get_username }}</li>
-          <li><a href="{% url 'my-borrowed' %}">Meus Livros emprestados</a></li>
-          <form action="{% url 'logout' %}?next={{ request.path }}" method="post">
-            {% csrf_token %}
-           <li><button type="submit" class="btn btn-link">Logout</button></li>
-          </form>
-                {% else %}
-                  <li><a href="{% url 'login' %}?next={{ request.path }}">Login</a></li>
-                {% endif %}
-            </ul> -->
-            
+         
             <ul class="sidebar-nav">
               {% if user.is_authenticated %}
                 {% for group in user.groups.all %}
                   <li>{{ group.name }}</li>
-                  <li><a href="{% url 'emprestados' %}">Todos Livros emprestados</a></li>
+                  <li><a href="{% url 'emprestados' %}">Livros emprestados</a></li>
+                {% endfor %}
+              {% endif %}
+              
+              {% if user.is_staff %}
+                <hr>
+                <li>CRUD</li>
+                <ul class="sidebar-nav">
+                  {% if perms.catalog.add_author %}
+                    <li><a href="{% url 'author-create' %}">Create author</a></li>
+                  {% endif %}
+                  <!-- Adicione links para Read, Update e Delete aqui, se necessário -->
+                  <!-- Exemplo: -->
+                  {% if perms.catalog.change_author %}
+                    {% if author %}
+                      <li><a href="{% url 'author-update' pk=author.pk %}">Update author</a></li>
+                      <li><a href="{% url 'author-delete' pk=author.pk %}">Delete author</a></li>
+                    {% endif %}
+                  {% endif %}
+                  
+                  
+                  <!-- Fim do item CRUD -->
+                </ul>
+              {% endif %}
+            </ul>
+            
+            <!-- <ul class="sidebar-nav">
+              {% if user.is_authenticated %}
+                {% for group in user.groups.all %}
+                  <li>{{ group.name }}</li>
+                  <li><a href="{% url 'emprestados' %}">Livros emprestados</a></li>
                 {% endfor %}
               {% endif %}
 
               {% if user.is_staff %}
                 <hr>
                 <ul class="sidebar-nav">
-                <li>Staff</li>
+                <li>CRUD</li>
                   {% if perms.catalog.add_author %}
                   <li><a href="{% url 'author-create' %}">Create author</a></li>
+                  
                 {% endif %}
                 </ul>
                 {% endif %}
-
-
-            </ul>
+            </ul> -->
             
 
         </div>

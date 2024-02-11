@@ -18,18 +18,17 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 import datetime
 from django.contrib.auth.models import User
 from django.db.models import F
-
-
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views.generic import ListView
-
-
 from catalog.forms import RenewBookForm
 from django.contrib.auth.decorators import login_required, permission_required
+from django.views.generic.edit import DeleteView
+from django.urls import reverse_lazy
+from .models import Author
 
-@login_required
+# @login_required
 @permission_required('catalog.can_mark_returned', raise_exception=True)
 def renew_book_librarian(request, pk):
     """View function for renewing a specific BookInstance by librarian."""
@@ -166,16 +165,9 @@ class AuthorUpdate(PermissionRequiredMixin, UpdateView):
     fields = '__all__'
     permission_required = 'catalog.change_author'
 
+
+
 class AuthorDelete(PermissionRequiredMixin, DeleteView):
     model = Author
-    success_url = reverse_lazy('authors')
+    success_url = reverse_lazy('author')
     permission_required = 'catalog.delete_author'
-
-    def form_valid(self, form):
-        try:
-            self.object.delete()
-            return HttpResponseRedirect(self.success_url)
-        except Exception as e:
-            return HttpResponseRedirect(
-                reverse("author-delete", kwargs={"pk": self.object.pk})
-            )
