@@ -1,5 +1,4 @@
 from django.test import TestCase
-
 # Crie seus testes aqui.
 class YourTestClass(TestCase):
     @classmethod
