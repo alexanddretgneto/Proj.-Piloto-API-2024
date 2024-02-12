@@ -1,0 +1,11 @@
+settings_local.py
+.env
+media/
+.pyc
+venv/
+.venv/
+env/
+myenv/
+*.log
+*.tmp
+static/dist/
