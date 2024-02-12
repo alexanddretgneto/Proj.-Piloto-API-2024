@@ -9,3 +9,5 @@ myenv/
 *.log
 *.tmp
 static/dist/
+# .gitignore
+config_secret.json

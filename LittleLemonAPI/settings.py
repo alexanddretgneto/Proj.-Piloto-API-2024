@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 import os
 from pathlib import Path
-
+import json
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -21,12 +21,20 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-&47=j&6_yos(%k(ba5w(=rd_a=by&9y!^8*x6=mnz#0w%86unx'
+# SECRET_KEY = ''
+
+SECRET_CONFIG_FILE = os.path.join(BASE_DIR, 'config_secret.json')
+
+with open(SECRET_CONFIG_FILE) as f:
+    secret_config = json.loads(f.read())
+
+SECRET_KEY = secret_config['SECRET_KEY']
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
